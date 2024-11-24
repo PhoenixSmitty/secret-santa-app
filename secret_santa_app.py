@@ -6,6 +6,12 @@ import yagmail
 # File to store participants' data
 DATA_FILE = "participants.csv"
 
+# Initialize session state variables if not set
+if "sender_email" not in st.session_state:
+    st.session_state.sender_email = ""
+if "sender_password" not in st.session_state:
+    st.session_state.sender_password = ""
+
 # Title and instructions
 st.title("🎅 Secret Santa 🎄")
 st.write("Welcome to the Secret Santa organizer! Participants can enter their details below.")
@@ -70,17 +76,12 @@ if st.checkbox("Show Organizer Controls"):
 
                 # Send Emails
                 st.subheader("Send Emails")
+                
                 # Ensure email input fields remain visible across reruns
-                if "sender_email" not in st.session_state:
-                    st.session_state.sender_email = ""
-                if "sender_password" not in st.session_state:
-                    st.session_state.sender_password = ""
-
-                # Using session_state to preserve email input
                 sender_email = st.text_input("Your Email Address", value=st.session_state.sender_email)
                 sender_password = st.text_input("Your Email Password", type="password", value=st.session_state.sender_password)
 
-                # Save entered values to session_state to persist across reruns
+                # Store inputted email and password in session_state to persist across reruns
                 st.session_state.sender_email = sender_email
                 st.session_state.sender_password = sender_password
 
