@@ -6,7 +6,7 @@ import yagmail
 # File to store participants' data
 DATA_FILE = "participants.csv"
 
-# Initialize session state variables if not set
+# Initialize session state variables for email and password if not already set
 if "sender_email" not in st.session_state:
     st.session_state.sender_email = ""
 if "sender_password" not in st.session_state:
@@ -77,11 +77,11 @@ if st.checkbox("Show Organizer Controls"):
                 # Send Emails
                 st.subheader("Send Emails")
                 
-                # Ensure email input fields remain visible across reruns
+                # Using session_state to keep email inputs persistent
                 sender_email = st.text_input("Your Email Address", value=st.session_state.sender_email)
                 sender_password = st.text_input("Your Email Password", type="password", value=st.session_state.sender_password)
 
-                # Store inputted email and password in session_state to persist across reruns
+                # Store the entered values in session_state to persist across reruns
                 st.session_state.sender_email = sender_email
                 st.session_state.sender_password = sender_password
 
@@ -111,3 +111,4 @@ if st.checkbox("Show Organizer Controls"):
                         st.error(f"Failed to send emails: {e}")
     except FileNotFoundError:
         st.warning("No participant data found. Please have participants submit their details first.")
+
